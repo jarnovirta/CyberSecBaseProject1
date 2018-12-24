@@ -5,8 +5,6 @@
  */
 package com.cybersec.cybersec_project1.controller;
 
-import com.cybersec.cybersec_project1.repository.AccountRepository;
-import com.cybersec.cybersec_project1.repository.CustomPostRepository;
 import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -14,14 +12,16 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import com.cybersec.cybersec_project1.repository.AccountDAO;
+import com.cybersec.cybersec_project1.repository.PostDAO;
 
 @Controller
 public class FrontPageController {
     @Autowired
-    private CustomPostRepository postRepository;
+    private PostDAO postRepository;
    
     @Autowired
-    private AccountRepository accountRepository;
+    private AccountDAO accountRepository;
    
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     

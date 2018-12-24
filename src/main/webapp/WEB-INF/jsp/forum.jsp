@@ -28,6 +28,9 @@
             
         </c:if>
             <h3>Search posts:</h3>
+            <c:if test="${searchTerm != null}">
+                <h4>results for: '${searchTerm}'</h4>
+            </c:if>
             <form action="/search" method="GET">
                 <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
                 <label for="searchTerm">Search for</label>

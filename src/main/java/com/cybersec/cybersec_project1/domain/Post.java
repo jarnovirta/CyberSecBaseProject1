@@ -1,15 +1,9 @@
 
 package com.cybersec.cybersec_project1.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import org.springframework.data.jpa.domain.AbstractPersistable;
-
-@Entity
-public class Post extends AbstractPersistable<Long> {
+public class Post {
     private String title;
     private String content;
-    @ManyToOne
     private Account user;
 
     public Post() {}

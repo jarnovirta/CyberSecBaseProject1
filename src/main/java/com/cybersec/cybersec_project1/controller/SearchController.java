@@ -5,12 +5,12 @@
  */
 package com.cybersec.cybersec_project1.controller;
 
-import com.cybersec.cybersec_project1.repository.CustomPostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import com.cybersec.cybersec_project1.repository.PostDAO;
 
 /**
  *
@@ -19,11 +19,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class SearchController {
     @Autowired
-    private CustomPostRepository postRepository;
+    private PostDAO postRepository;
         
     @RequestMapping("/search")
     public String search(Model model, @RequestParam("searchTerm") String searchTerm) {
         model.addAttribute("posts", postRepository.search(searchTerm));
+        model.addAttribute("searchTerm", searchTerm);
         return "forum";
     }
 }

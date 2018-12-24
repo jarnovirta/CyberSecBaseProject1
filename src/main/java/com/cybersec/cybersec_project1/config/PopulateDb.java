@@ -7,11 +7,12 @@ package com.cybersec.cybersec_project1.config;
 
 import com.cybersec.cybersec_project1.domain.Account;
 import com.cybersec.cybersec_project1.domain.Post;
-import com.cybersec.cybersec_project1.repository.AccountRepository;
-import com.cybersec.cybersec_project1.repository.CustomPostRepository;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import com.cybersec.cybersec_project1.repository.AccountDAO;
+import com.cybersec.cybersec_project1.repository.PostDAO;
 
 /**
  *
@@ -20,20 +21,34 @@ import org.springframework.stereotype.Component;
 @Component
 public class PopulateDb {
     @Autowired
-    private AccountRepository accountRepo;
+    private AccountDAO accountRepo;
     
     @Autowired
-    private CustomPostRepository postRepo;
+    private PostDAO postRepo;
+    
+    @Autowired
+    JdbcTemplate jdbcTemplate;
     
     @PostConstruct
     protected void populateDb() {
-        System.out.println("Populating db...");
-        Account admin = accountRepo.findByUsername("admin");
-        Post post = new Post("Welcome to the Forum!", "Howdy Partner! "
-                + "Before you post in this very secure forum remember to "
-                + "respect following rules and policies: blah blah blah blah...",
-                admin
-            );
-        postRepo.save(post);
+        System.out.println("Creating and populating tables...");
+        
+        jdbcTemplate.execute("DROP TABLE accounts IF EXISTS");
+        jdbcTemplate.execute("CREATE TABLE accounts (" +
+                "id SERIAL, username VARCHAR(50), password VARCHAR(80))");
+        jdbcTemplate.execute("INSERT INTO accounts(username, password) VALUES"
+                + " ('admin', '$2a$10$EcNri2HeQQkADevP4WPrd.Vfks1aMqzqT3v8e7r8RToUDSnHb5JQq')");
+        
+        jdbcTemplate.execute("DROP TABLE posts IF EXISTS");
+        jdbcTemplate.execute("CREATE TABLE posts (" +
+                "id SERIAL, title VARCHAR(100), content VARCHAR(1000), account_id BIGINT)");
+        String title = "Welcome to the Forum!";
+        String content = "Howdy Partner! Before you post in this very secure "
+                + "forum remember to respect following rules and policies: blah blah blah blah...";
+        String query = "INSERT INTO posts (title, content, account_id)"
+                + " VALUES ('" + title + "', '" + content + "', 1);";
+        
+        jdbcTemplate.execute(query);
+        
     }
 }

@@ -1,16 +1,11 @@
 package com.cybersec.cybersec_project1.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
 
-import org.springframework.data.jpa.domain.AbstractPersistable;
-
-@Entity
-public class Account extends AbstractPersistable<Long> {
+public class Account {
     
-    @Column(unique = true)
     private String username;
     private String password;
+    private Long id;
 
     public String getUsername() {
         return username;
@@ -26,6 +21,14 @@ public class Account extends AbstractPersistable<Long> {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
 
