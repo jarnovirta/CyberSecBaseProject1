@@ -80,7 +80,8 @@ The code could be fixed by using java.sql.PreparedStatement (https://docs.oracle
 Basically any library or framework will have standard query methods which allow you to 
 prevent this vulnerability. It was actually quite a lot of work to include this vulnerability 
 as the Spring Boot framework uses by default the Hibernate JPA library and it does 
-not seem to allow multiple SQL (or rather JPQL) statements to be run at once, separated by a semicolon.
+not seem to allow multiple SQL (or rather JPQL) statements to be run at once, separated by a semicolon
+I had to revert to basic JDBC queries instead of JPA, and code all of the queries myself...
 
 
 Issue 5: Insufficient logging and monitoring

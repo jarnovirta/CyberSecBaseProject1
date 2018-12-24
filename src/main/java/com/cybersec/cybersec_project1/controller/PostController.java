@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.cybersec.cybersec_project1.repository.AccountDAO;
 import com.cybersec.cybersec_project1.repository.PostDAO;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  *
@@ -35,6 +36,12 @@ public class PostController {
         Account user = accountRepository.findByUsername(principal.getName());
         Post post = new Post(title, content, user);
         postRepository.save(post);
+        return "redirect:/";
+    }
+    @RequestMapping(value="/posts/delete", method = RequestMethod.POST) 
+    public String delete(@RequestParam("id") Long id) {
+        System.out.println("got delete request");
+        postRepository.delete(id);
         return "redirect:/";
     }
 }

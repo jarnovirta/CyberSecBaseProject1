@@ -2,7 +2,6 @@ package com.cybersec.cybersec_project1.config;
 
 import com.cybersec.cybersec_project1.domain.Account;
 import java.util.Arrays;
-import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import com.cybersec.cybersec_project1.repository.AccountDAO;
+import org.springframework.security.core.GrantedAuthority;
 
 
 @Service
@@ -25,6 +25,9 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("No such user: " + username);
         }
 
+        GrantedAuthority auth;
+        if (username.equals("admin")) auth = new SimpleGrantedAuthority("ADMIN");
+        else auth = new SimpleGrantedAuthority("USER");
         return new org.springframework.security.core.userdetails.User(
                 account.getUsername(),
                 account.getPassword(),
@@ -32,6 +35,6 @@ public class CustomUserDetailsService implements UserDetailsService {
                 true,
                 true,
                 true,
-                Arrays.asList(new SimpleGrantedAuthority("USER")));
+                Arrays.asList(auth));
     }
 }

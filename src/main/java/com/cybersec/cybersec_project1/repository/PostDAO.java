@@ -7,4 +7,5 @@ public interface PostDAO {
    void save(Post post);
    List<Post> findAll();
    List<Post> search(String searchTerm);
+   void delete(Long id);
 }

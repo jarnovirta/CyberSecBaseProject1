@@ -1,7 +1,9 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8" %>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -46,6 +48,9 @@
                 <tr style=" background-color: lightgrey">
                     <th style="padding:10px">User</th>
                     <th style="padding:10px">Post</th>
+                    <sec:authorize access="hasAuthority('ADMIN')">
+                       <th style="padding:10px">Delete</th>
+                    </sec:authorize>
                 </tr>
             </thead>
             <tbody>
@@ -57,10 +62,20 @@
                             <br />
                             ${post.content}
                         </td>
+                        <sec:authorize access="hasAuthority('ADMIN')">
+                            <td style="padding:10px">
+                                <form action="/posts/delete" method="POST">
+                                    <input type="hidden"  name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                    <input type="hidden" name="id" value="${post.id}" />
+                                    <input type="submit" value="Delete" />
+                                </form>
+                            </td>
+                         </sec:authorize>
                     </tr>
                 </c:forEach>    
             </tbody>
-        </table>
-    </body>
+        </table>        
+    </body>    
 </html>
+
 

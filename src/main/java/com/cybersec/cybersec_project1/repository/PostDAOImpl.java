@@ -65,8 +65,9 @@ public class PostDAOImpl implements PostDAO {
                 while (rs.next()) {
                     String title = rs.getString("title");
                     String content = rs.getString("content");
+                    Long id = rs.getLong("id");
                     Account acc = accountDao.findById(rs.getLong("account_id"));
-                    posts.add(new Post(title, content, acc));
+                    posts.add(new Post(id, title, content, acc));
                 }
                 rs.close();
                 stmt.close();
@@ -87,17 +88,17 @@ public class PostDAOImpl implements PostDAO {
             String sql = "SELECT * FROM posts WHERE "
                     + "title LIKE '%" + searchTerm + "%' OR "
                     + "content LIKE '%" + searchTerm + "%';";   
-            System.out.println("QUERY: " + sql);
             Connection conn = dataSource.getConnection();
                         
             stmt = conn.createStatement();
             if (stmt.execute(sql)) {
                 rs = stmt.getResultSet();
                 while (rs.next()) {
+                    Long id = rs.getLong(1);
                     String title = rs.getString(2);
                     String content = rs.getString(3);
                     Account acc = accountDao.findById(rs.getLong(4));
-                    posts.add(new Post(title, content, acc));
+                    posts.add(new Post(id, title, content, acc));
                 }
                 rs.close();
                 stmt.close();
@@ -107,7 +108,22 @@ public class PostDAOImpl implements PostDAO {
         catch (SQLException e) {
             e.printStackTrace();
         }
-        return posts;       
-        
+        return posts;               
+    }
+    public void delete(Long id) {
+        Statement stmt = null;        
+        try {
+            String sql = "DELETE FROM posts WHERE id=" + id;
+            Connection conn = dataSource.getConnection();
+                        
+            stmt = conn.createStatement();
+            stmt.execute(sql);
+            stmt.close();
+            conn.close();
+            
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }        
     }
 }
