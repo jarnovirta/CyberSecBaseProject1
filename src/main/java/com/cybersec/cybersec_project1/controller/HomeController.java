@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
    @RequestMapping("/test")
    public String test() {
-       System.out.println("lkjljl");
        return "test";
    }
 }
