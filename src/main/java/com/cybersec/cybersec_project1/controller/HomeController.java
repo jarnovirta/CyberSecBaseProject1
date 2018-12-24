@@ -21,19 +21,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
  */
 @Controller
 public class HomeController {
-   @Autowired
-   private PostRepository postRepository;
-   
-   @Autowired
-   private AccountRepository accountRepository;
-   
-   Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-   
+  
    @RequestMapping("/")
-   public String getForumPage(Model model, Principal principal) {
-              
-       if (principal != null) model.addAttribute("user", accountRepository.findByUsername(principal.getName()));
-       model.addAttribute("posts", postRepository.findAll());
-       return "forum";
+   public String getForumPage() {
+       return "redirect:/frontPage";
    }
 }

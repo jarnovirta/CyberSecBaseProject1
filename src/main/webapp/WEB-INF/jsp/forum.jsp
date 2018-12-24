@@ -12,11 +12,21 @@
         <h1>=== Secure Cyber Security Forum ===</h1>
         
         <c:if test="${user == null}">
-            Login
+            <a href="/login">Login</a>            
         </c:if>
         <c:if test="${user != null}">
-            Post new post in posts
+            <br />
+            <h3>New post:</h3>
+            <form action="/posts" method="POST">
+                <label for="title">Title</label>
+                <input type="text" name="title" id="title" />
+                <label for="content">Content</label>
+                <input type="text" name="content" id="content" />
+                <input type="submit" value="Post" />
+            </form>
+            
         </c:if>
+        <br /><br />
         <table style="width: 600px;">
             <thead>
                 <tr style=" background-color: lightgrey">
