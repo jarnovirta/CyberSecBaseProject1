@@ -6,7 +6,7 @@
 package com.cybersec.cybersec_project1.controller;
 
 import com.cybersec.cybersec_project1.repository.AccountRepository;
-import com.cybersec.cybersec_project1.repository.PostRepository;
+import com.cybersec.cybersec_project1.repository.CustomPostRepository;
 import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class FrontPageController {
     @Autowired
-    private PostRepository postRepository;
+    private CustomPostRepository postRepository;
    
     @Autowired
     private AccountRepository accountRepository;

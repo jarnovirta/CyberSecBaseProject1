@@ -8,7 +8,7 @@ package com.cybersec.cybersec_project1.config;
 import com.cybersec.cybersec_project1.domain.Account;
 import com.cybersec.cybersec_project1.domain.Post;
 import com.cybersec.cybersec_project1.repository.AccountRepository;
-import com.cybersec.cybersec_project1.repository.PostRepository;
+import com.cybersec.cybersec_project1.repository.CustomPostRepository;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,7 +23,7 @@ public class PopulateDb {
     private AccountRepository accountRepo;
     
     @Autowired
-    private PostRepository postRepo;
+    private CustomPostRepository postRepo;
     
     @PostConstruct
     protected void populateDb() {

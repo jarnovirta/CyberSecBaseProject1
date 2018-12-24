@@ -31,7 +31,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // you can access the h2-console through /h2-console
-        http.csrf().disable();
+        
         http.headers().frameOptions().sameOrigin();
         
         http.authorizeRequests()

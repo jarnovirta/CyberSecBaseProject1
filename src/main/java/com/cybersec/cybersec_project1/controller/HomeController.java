@@ -4,16 +4,10 @@
  * and open the template in the editor.
  */
 package com.cybersec.cybersec_project1.controller;
-
-import com.cybersec.cybersec_project1.repository.PostRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.cybersec.cybersec_project1.repository.AccountRepository;
-import java.security.Principal;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+
+
 
 /**
  *

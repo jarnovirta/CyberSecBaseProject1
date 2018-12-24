@@ -18,6 +18,7 @@
             <br />
             <h3>New post:</h3>
             <form action="/posts" method="POST">
+                <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
                 <label for="title">Title</label>
                 <input type="text" name="title" id="title" />
                 <label for="content">Content</label>
@@ -26,6 +27,16 @@
             </form>
             
         </c:if>
+            <h3>Search posts:</h3>
+            <form action="/search" method="GET">
+                <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
+                <label for="searchTerm">Search for</label>
+                <input type="text" name="searchTerm" id="title" />
+                <input type="submit" value="Search" type="button"/>
+                <c:url value="/" var="url" />
+                <input type="button" onclick="location.href='${url}';" value="Clear" />
+                
+            </form>        
         <br /><br />
         <table style="width: 600px;">
             <thead>
