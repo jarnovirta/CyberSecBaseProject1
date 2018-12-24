@@ -9,7 +9,6 @@ war instead of jar. But it can be run as stand-alone.
 3. In your browser, navigate to http://localhost:8080/
 
 
-
 Issue 1: Broken authentication (hard-coded weak admin password)
 Steps to reproduce:
 1. Go to http://localhost:8080/
