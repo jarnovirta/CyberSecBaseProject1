@@ -20,12 +20,11 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @PostConstruct
     public void init() {
-        // DO NOT CHANGE THESE VALUES!
         Account account = new Account();
-        account.setUsername("ted");
-        account.setPassword("$2a$10$nKOFU.4/iK9CqDIlBkmMm.WZxy2XKdUSlImsG8iKsAP57GMcXwLTS");
+        account.setUsername("admin");
+        account.setPassword("$2a$10$EcNri2HeQQkADevP4WPrd.Vfks1aMqzqT3v8e7r8RToUDSnHb5JQq");
         accountRepository.save(account);
-        // ---
+        
     }
 
     @Override

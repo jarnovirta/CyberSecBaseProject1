@@ -5,8 +5,15 @@
  */
 package com.cybersec.cybersec_project1.controller;
 
+import com.cybersec.cybersec_project1.repository.PostRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import com.cybersec.cybersec_project1.repository.AccountRepository;
+import java.security.Principal;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  *
@@ -14,8 +21,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class HomeController {
-   @RequestMapping("/test")
-   public String test() {
-       return "test";
+   @Autowired
+   private PostRepository postRepository;
+   
+   @Autowired
+   private AccountRepository accountRepository;
+   
+   Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+   
+   @RequestMapping("/")
+   public String getForumPage(Model model, Principal principal) {
+              
+       if (principal != null) model.addAttribute("user", accountRepository.findByUsername(principal.getName()));
+       model.addAttribute("posts", postRepository.findAll());
+       return "forum";
    }
 }
