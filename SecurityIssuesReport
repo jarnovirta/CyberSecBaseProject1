@@ -8,6 +8,7 @@ with JSP's took a bit of hacking... For this reason, the packaging in pom.xml is
 war instead of jar. But it can be run as stand-alone.
 3. In your browser, navigate to http://localhost:8080/
 
+=== 
 
 Issue 1: Broken authentication (hard-coded weak admin password)
 Steps to reproduce:
@@ -36,8 +37,9 @@ would be to insert admin account username and password hash into the database
 manually upon installing the app, or to include such data in a separate file
 which is excluded from the Git repository.
 
+===
 
-Issue 2: cross-site scripting vulnerability
+Issue 2: Cross-site scripting vulnerability
 Steps to reproduce:
 1. Navigate to http://localhost:8080/
 2. Click 'Login' and log in as username 'admin', password 'password'
@@ -57,9 +59,12 @@ JSP's, the fix would be as follow:
 2. Replace ${post.title} and ${post.content} with <c:out value="${post.title}" />
 and <c:out value="${post.content}" />
 
+===
 
 Issue 3: Broken access control
 
+
+===
 
 Issue 4: SQL injection
 Steps to reproduce:
@@ -82,7 +87,11 @@ prevent this vulnerability. It was actually quite a lot of work to include this 
 as the Spring Boot framework uses by default the Hibernate JPA library and it does 
 not seem to allow multiple SQL (or rather JPQL) statements to be run at once, separated by a semicolon
 I had to revert to basic JDBC queries instead of JPA, and code all of the queries myself...
+I think what is possible to do with Hibernate, though, is getting too many results
+from a SELECT query by the user adding [ ' OR 1=1 ] or something of the sort.
+But I wanted to go full-out with an even more severe vulnerability.
 
+===
 
 Issue 5: Insufficient logging and monitoring
 

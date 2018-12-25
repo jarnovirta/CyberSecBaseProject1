@@ -5,14 +5,10 @@
  */
 package com.cybersec.cybersec_project1.config;
 
-import com.cybersec.cybersec_project1.domain.Account;
-import com.cybersec.cybersec_project1.domain.Post;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-import com.cybersec.cybersec_project1.repository.AccountDAO;
-import com.cybersec.cybersec_project1.repository.PostDAO;
 
 /**
  *
@@ -20,11 +16,6 @@ import com.cybersec.cybersec_project1.repository.PostDAO;
  */
 @Component
 public class PopulateDb {
-    @Autowired
-    private AccountDAO accountRepo;
-    
-    @Autowired
-    private PostDAO postRepo;
     
     @Autowired
     JdbcTemplate jdbcTemplate;
@@ -36,8 +27,15 @@ public class PopulateDb {
         jdbcTemplate.execute("DROP TABLE accounts IF EXISTS");
         jdbcTemplate.execute("CREATE TABLE accounts (" +
                 "id SERIAL, username VARCHAR(50), password VARCHAR(80))");
+        
         jdbcTemplate.execute("INSERT INTO accounts(username, password) VALUES"
                 + " ('admin', '$2a$10$EcNri2HeQQkADevP4WPrd.Vfks1aMqzqT3v8e7r8RToUDSnHb5JQq')");
+        
+        // This user is provided for demo purposes for the Cyber Security Base
+        // course:
+        // username: 'kevinmitnick', password: '123456'
+        jdbcTemplate.execute("INSERT INTO accounts(username, password) VALUES"
+                + " ('kevinmitnick', '$2a$10$Ln6zFYd1n4eKAtk2pKo4nesRcle.xdp6D3D46mAbG/UzI.Bvmj1ii')");
         
         jdbcTemplate.execute("DROP TABLE posts IF EXISTS");
         jdbcTemplate.execute("CREATE TABLE posts (" +

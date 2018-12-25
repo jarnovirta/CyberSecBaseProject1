@@ -3,7 +3,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8" %>
 
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,11 +12,16 @@
     <body>
         <h1>=== Secure Cyber Security Forum ===</h1>
         
-        <c:if test="${user == null}">
+        <sec:authentication property="principal.username" var="username" />
+        <sec:authorize access="hasAuthority('ADMIN')" var="isAdmin" />
+        
+        <sec:authorize access="isAnonymous()">
             <a href="/login">Login</a>            
-        </c:if>
-        <c:if test="${user != null}">
+        </sec:authorize>
+        <sec:authorize access="isAuthenticated()">
             <br />
+            <p>Logged in as <i>${username}</i>&nbsp; 
+                <a href="/logout">Logout</a></p>
             <h3>New post:</h3>
             <form action="/posts" method="POST">
                 <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
@@ -27,8 +31,7 @@
                 <input type="text" name="content" id="content" />
                 <input type="submit" value="Post" />
             </form>
-            
-        </c:if>
+        </sec:authorize>
             <h3>Search posts:</h3>
             <c:if test="${searchTerm != null}">
                 <h4>results for: '${searchTerm}'</h4>
@@ -48,13 +51,14 @@
                 <tr style=" background-color: lightgrey">
                     <th style="padding:10px">User</th>
                     <th style="padding:10px">Post</th>
-                    <sec:authorize access="hasAuthority('ADMIN')">
+                    <sec:authorize access="isAuthenticated()">
                        <th style="padding:10px">Delete</th>
                     </sec:authorize>
                 </tr>
             </thead>
             <tbody>
                 <c:forEach var="post" items="${posts}" >
+                    <c:set var="canDelete" value="false" />
                     <tr>
                         <td style="padding:10px">${post.user.username}</td>
                         <td style="padding:10px">
@@ -62,13 +66,15 @@
                             <br />
                             ${post.content}
                         </td>
-                        <sec:authorize access="hasAuthority('ADMIN')">
+                        <sec:authorize access="isAuthenticated()">
                             <td style="padding:10px">
-                                <form action="/posts/delete" method="POST">
-                                    <input type="hidden"  name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                    <input type="hidden" name="id" value="${post.id}" />
-                                    <input type="submit" value="Delete" />
-                                </form>
+                                <c:if test="${username == post.user.username || isAdmin}">
+                                    <form action="/posts/delete" method="POST">
+                                        <input type="hidden"  name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                        <input type="hidden" name="id" value="${post.id}" />
+                                        <input type="submit" value="Delete" />
+                                    </form>
+                                </c:if>
                             </td>
                          </sec:authorize>
                     </tr>
@@ -77,5 +83,3 @@
         </table>        
     </body>    
 </html>
-
-
