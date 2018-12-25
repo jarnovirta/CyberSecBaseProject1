@@ -44,7 +44,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .permitAll()
                 .and().
-                logout();
+                logout()
+                .logoutSuccessUrl("/");
     }
 
     @Autowired

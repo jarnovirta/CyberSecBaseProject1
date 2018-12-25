@@ -40,7 +40,6 @@ public class PostController {
     }
     @RequestMapping(value="/posts/delete", method = RequestMethod.POST) 
     public String delete(@RequestParam("id") Long id) {
-        System.out.println("got delete request");
         postRepository.delete(id);
         return "redirect:/";
     }

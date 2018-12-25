@@ -12,7 +12,9 @@
     <body>
         <h1>=== Secure Cyber Security Forum ===</h1>
         
-        <sec:authentication property="principal.username" var="username" />
+        <sec:authorize access="isAuthenticated()" >
+            <sec:authentication property="principal.username" var="username" />
+        </sec:authorize>
         <sec:authorize access="hasAuthority('ADMIN')" var="isAdmin" />
         
         <sec:authorize access="isAnonymous()">
