@@ -61,8 +61,33 @@ and <c:out value="${post.content}" />
 
 ===
 
-Issue 3: Broken access control
+Issue 3: Broken access control (user can delete another user's post)
+Steps to reproduce:
+1. Open your browser's developer tools view (/console) and the "Network" tab.
+2. Navigate to localhost:8080/ and click on "Login"
+3. Log in as 'kevinmitnick', password '123456'
+4. Add a post. A 'Delete' button is shown next to Kevin's new post, not
+next to the Admin's post.
+5. Open an HTTP request in the developer tools / network tab and copy the value of 
+the JSESSIONID session cookie.
+6. Using an application for generating HTTP requests (I use the ARC add-on in Chrome),
+make request as follows:
+    - set the url to localhost:8080/posts/delete
+    - set method to "POST" (it should be delete but I took a shortcut because
+        a DELETE request would require using an AJAX request which would require
+        tinkering with the CSRF token...)
+    - set header "content-type" to "application/x-www-form-urlencoded"
+    - in request body, set parameter "id" to 1 ("id=1")
+    - send the request
+7. Refresh your browser view. Kevin was able to delete a post by user 'admin' (the first
+post on the forum).
 
+Steps to fix the issue:
+It is not sufficient to hide a functionality from view when a user is not 
+allowed to use it. Access should be controlled on the server side. The way to 
+fix the issue would be to check in PostController.java that the post to be deleted
+was made by the user deleting it or the user is an admin user. Never trust requests/data
+coming from the user but instead apply the necessary controls on the server side!
 
 ===
 
