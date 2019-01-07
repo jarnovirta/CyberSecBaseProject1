@@ -107,10 +107,10 @@ https://stackoverflow.com/questions/20485059/spring-boot-how-can-i-set-the-loggi
 
 In my project, adding these configurations to application.properties would be a start:
 
-logging.level.org.springframework.web=ERROR 
-logging.level.com.cybersec.cybersec_project1=DEBUG 
-logging.pattern.console= %d{yyyy-MM-dd HH:mm:ss} - %msg%n 
-logging.pattern.file= %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n 
+logging.level.org.springframework.web=ERROR  
+logging.level.com.cybersec.cybersec_project1=DEBUG  
+logging.pattern.console= %d{yyyy-MM-dd HH:mm:ss} - %msg%n  
+logging.pattern.file= %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n  
 logging.file=logs/application.log 
 
 
