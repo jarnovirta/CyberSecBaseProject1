@@ -1,6 +1,6 @@
 # CyberSecBaseProject1
 
-Project I for Helsinki Open University/F-Secure [ Cyber Security Base 2018 Course (Part III)](https://cybersecuritybase.mooc.fi/project/)
+Project I for Helsinki Open University/F-Secure [ Cyber Security Base 2018 Course (Part III)](https://cybersecuritybase.mooc.fi/project/).
 
 ## 1. The Assignment:
 
