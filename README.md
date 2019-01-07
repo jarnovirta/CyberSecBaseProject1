@@ -14,7 +14,7 @@ You will then write a brief (1000 words) report that outlines how the flaws can 
 
 The application is a Java Spring Boot application, with server responding on port 8080.
 1. Clone the repository from https://github.com/jarnovirta/CyberSecBaseProject1.git
-2. Start the application by clicking Run in the TMCNetbeans IDE or you can start it from command line with "mvn spring-boot:run". 
+2. Start the application by clicking Run in the TMCNetbeans IDE or from command line with "mvn spring-boot:run". 
 3. Navigate to http://localhost:8080/
 
 
