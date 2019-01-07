@@ -4,7 +4,7 @@ Project I for Helsinki Open University/F-Secure [ Cyber Security Base 2018 Cours
 
 ## 1. The Assignment:
 
-In the first course project, your task is to create a web application that has at least five different flaws from the [OWASP top ten list](https://www.owasp.org/images/7/72/OWASP_Top_10-2017_%28en%29.pdf.pdf). 
+In the first course project, your task is to create a web application that has at least five different flaws from the [OWASP Top Ten List](https://www.owasp.org/images/7/72/OWASP_Top_10-2017_%28en%29.pdf.pdf). 
 
 You will then write a brief (1000 words) report that outlines how the flaws can be first identified and then fixed. For the identification process, we suggest that you use tools that have been used in the course, such as Owasp ZAP. 
 
@@ -69,7 +69,7 @@ and `<c:out value="${post.content}" />`
 3. Log in as 'kevinmitnick', password '123456'
 4. Add a post. A 'Delete' button is shown next to Kevin's new post, not next to the Admin's post. Kevin is not an admin.
 5. Open an HTTP request in the developer tools / network tab and copy the value of the JSESSIONID session cookie.
-6. Using an application for generating HTTP requests (I use the ARC add-on in Chrome), make a POST request to localhost:8080/posts/delete (it should be delete but I took a shortcut because a DELETE request would require using an AJAX request which would require tinkering with the CSRF token...). Set header `"content-type"` to `"application/x-www-form-urlencoded"`. In request body, set parameter "id" to 1 (`"id=1"`).
+6. Using an application for generating HTTP requests (I use the ARC add-on in Chrome), make a POST request to localhost:8080/posts/delete (it should be delete but I took a shortcut because a DELETE request would require using an AJAX request which would require tinkering with the CSRF token...). Set header `Content-Type` to `application/x-www-form-urlencoded`. In request body, set parameter "id" to 1 (`id=1`).
 7. Refresh your browser view. Kevin was able to delete a post by user 'admin'.
 
 #### Steps to fix the issue:
